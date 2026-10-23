@@ -1,0 +1,192 @@
+[
+  {
+    "slug": "mongodb-atlas",
+    "name": "MongoDB Atlas",
+    "category": "database",
+    "summary": "Managed MongoDB document database with built-in full-text search, vector search and change streams.",
+    "use_cases": "Apps with evolving, nested data; products that need search and semantic/vector retrieval next to operational data; event-driven features via change streams.",
+    "languages": ["TypeScript", "Python", "Java", "Go", "C#", "Rust", "Ruby", "PHP", "Kotlin", "Swift"],
+    "licence": "proprietary (managed service)",
+    "open_source": false,
+    "deployment": ["managed-cloud"],
+    "ops_overhead": "low",
+    "capabilities": ["document-model", "full-text-search", "vector-search", "realtime", "transactions"],
+    "tradeoffs": ["Requires a MongoDB Atlas cloud account; Atlas itself cannot be self-hosted.", "Heavily relational data with many joins needs careful schema design in a document model."],
+    "avoid_if": "you must self-host every component or your data is fundamentally relational with many cross-entity joins.",
+    "sources": [
+      {"title": "MongoDB Atlas documentation", "url": "https://www.mongodb.com/docs/atlas/"},
+      {"title": "MongoDB Vector Search overview", "url": "https://www.mongodb.com/docs/vector-search/"}
+    ]
+  },
+  {
+    "slug": "mongodb-community",
+    "name": "MongoDB Community Edition",
+    "category": "database",
+    "summary": "Self-managed MongoDB server; search and vector search are available via the mongot process.",
+    "use_cases": "Teams that want the MongoDB document model on their own infrastructure, on-premises deployments, local development.",
+    "languages": ["TypeScript", "Python", "Java", "Go", "C#", "Rust", "Ruby", "PHP", "Kotlin", "Swift"],
+    "licence": "SSPL-1.0",
+    "open_source": false,
+    "deployment": ["self-hosted"],
+    "ops_overhead": "medium",
+    "capabilities": ["document-model", "full-text-search", "vector-search", "realtime", "transactions"],
+    "tradeoffs": ["You operate backups, upgrades, replication and the separate search process yourself.", "SSPL is source-available but not OSI-approved, which matters for some open-source policies."],
+    "avoid_if": "your organisation requires an OSI-approved licence or you have no capacity to run database operations.",
+    "sources": [
+      {"title": "Install MongoDB Community Edition", "url": "https://www.mongodb.com/docs/manual/administration/install-community/"},
+      {"title": "Server Side Public License", "url": "https://www.mongodb.com/legal/licensing/server-side-public-license"}
+    ]
+  },
+  {
+    "slug": "postgresql",
+    "name": "PostgreSQL",
+    "category": "database",
+    "summary": "Mature open-source relational database with strong SQL, transactions and a large extension ecosystem (e.g. pgvector).",
+    "use_cases": "Transactional business data, relational schemas, reporting, apps that want one well-understood database; vector search via the pgvector extension.",
+    "languages": ["TypeScript", "Python", "Java", "Go", "C#", "Rust", "Ruby", "PHP", "Kotlin", "Swift", "Dart"],
+    "licence": "PostgreSQL License",
+    "open_source": true,
+    "deployment": ["self-hosted", "managed-cloud"],
+    "ops_overhead": "medium",
+    "capabilities": ["relational", "sql", "transactions", "full-text-search", "vector-search"],
+    "tradeoffs": ["Self-hosting means owning backups, failover and upgrades; managed offerings vary by provider.", "Vector search relies on the pgvector extension rather than being built in."],
+    "avoid_if": "you need built-in realtime sync to clients or offline-first mobile sync without extra tooling.",
+    "sources": [
+      {"title": "PostgreSQL documentation", "url": "https://www.postgresql.org/docs/"},
+      {"title": "pgvector", "url": "https://github.com/pgvector/pgvector"}
+    ]
+  },
+  {
+    "slug": "supabase",
+    "name": "Supabase",
+    "category": "database",
+    "summary": "Open-source Postgres development platform bundling auth, realtime subscriptions, storage and edge functions.",
+    "use_cases": "Small teams wanting a Firebase-style backend on top of Postgres; CRUD apps with auth and realtime updates; prototypes that may later self-host.",
+    "languages": ["TypeScript", "Python", "Dart", "Swift", "Kotlin", "C#"],
+    "licence": "Apache-2.0",
+    "open_source": true,
+    "deployment": ["managed-cloud", "self-hosted"],
+    "ops_overhead": "low",
+    "capabilities": ["relational", "sql", "transactions", "realtime", "auth-built-in", "vector-search"],
+    "tradeoffs": ["Self-hosting runs several services (via Docker) and is noticeably more work than the managed platform.", "Realtime is change broadcast, not an offline-first sync engine."],
+    "avoid_if": "you need offline-first clients with automatic conflict resolution.",
+    "sources": [
+      {"title": "Supabase documentation", "url": "https://supabase.com/docs"},
+      {"title": "Self-hosting Supabase", "url": "https://supabase.com/docs/guides/self-hosting"}
+    ]
+  },
+  {
+    "slug": "firebase",
+    "name": "Firebase (Cloud Firestore)",
+    "category": "database",
+    "summary": "Google's managed app platform; Firestore is a document database with realtime listeners and offline persistence in client SDKs.",
+    "use_cases": "Mobile and web apps that need realtime updates and offline support quickly, with auth and hosting from the same vendor.",
+    "languages": ["TypeScript", "Swift", "Kotlin", "Java", "Dart", "Python", "Go", "C#"],
+    "licence": "proprietary (managed service)",
+    "open_source": false,
+    "deployment": ["managed-cloud"],
+    "ops_overhead": "low",
+    "capabilities": ["document-model", "realtime", "offline-sync", "auth-built-in", "serverless"],
+    "tradeoffs": ["Strong coupling to Google Cloud; migrating away later is costly.", "Query model is more limited than SQL (e.g. joins and some aggregations)."],
+    "avoid_if": "you must self-host or want to avoid vendor lock-in.",
+    "sources": [
+      {"title": "Firebase documentation", "url": "https://firebase.google.com/docs"},
+      {"title": "Access data offline (Firestore)", "url": "https://firebase.google.com/docs/firestore/manage-data/enable-offline"}
+    ]
+  },
+  {
+    "slug": "redis",
+    "name": "Redis",
+    "category": "database",
+    "summary": "In-memory data store used for caching, sessions, pub/sub, streams and (in Redis 8) query and vector search.",
+    "use_cases": "Caching, rate limiting, session storage, leaderboards, lightweight pub/sub and job queues (e.g. via BullMQ).",
+    "languages": ["TypeScript", "Python", "Java", "Go", "C#", "Rust", "Ruby", "PHP"],
+    "licence": "AGPL-3.0 / RSALv2 / SSPLv1 (Redis 8, tri-licensed)",
+    "open_source": true,
+    "deployment": ["self-hosted", "managed-cloud"],
+    "ops_overhead": "low",
+    "capabilities": ["key-value", "caching", "pub-sub", "streaming", "vector-search"],
+    "tradeoffs": ["Data lives in memory, so large datasets get expensive.", "Licensing changed in 2024 and again in 2025; check that the AGPL option fits your policy."],
+    "avoid_if": "you need it as the primary system of record for large, durable datasets.",
+    "sources": [
+      {"title": "Redis documentation", "url": "https://redis.io/docs/latest/"},
+      {"title": "Redis licenses", "url": "https://redis.io/legal/licenses/"}
+    ]
+  },
+  {
+    "slug": "sqlite",
+    "name": "SQLite",
+    "category": "database",
+    "summary": "Embedded, serverless SQL database engine stored in a single file.",
+    "use_cases": "Local-first and offline apps, mobile/desktop storage, tests, small to medium single-server web apps.",
+    "languages": ["TypeScript", "Python", "Java", "Go", "C#", "Rust", "Ruby", "PHP", "Kotlin", "Swift", "Dart"],
+    "licence": "public domain",
+    "open_source": true,
+    "deployment": ["library"],
+    "ops_overhead": "low",
+    "capabilities": ["relational", "sql", "transactions", "embedded"],
+    "tradeoffs": ["One writer at a time; not designed for high write concurrency across many clients.", "No built-in network server or replication."],
+    "avoid_if": "many application servers must write to the same database concurrently.",
+    "sources": [
+      {"title": "Appropriate uses for SQLite", "url": "https://www.sqlite.org/whentouse.html"},
+      {"title": "SQLite copyright", "url": "https://www.sqlite.org/copyright.html"}
+    ]
+  },
+  {
+    "slug": "neon",
+    "name": "Neon",
+    "category": "database",
+    "summary": "Serverless Postgres with separated storage and compute, scale-to-zero and database branching.",
+    "use_cases": "Postgres for serverless apps, preview environments per branch, spiky or low-traffic workloads.",
+    "languages": ["TypeScript", "Python", "Java", "Go", "C#", "Rust", "Ruby", "PHP"],
+    "licence": "Apache-2.0 (engine); typically used as a managed service",
+    "open_source": true,
+    "deployment": ["managed-cloud"],
+    "ops_overhead": "low",
+    "capabilities": ["relational", "sql", "transactions", "serverless", "branching", "vector-search"],
+    "tradeoffs": ["Cold starts after scale-to-zero add latency to the first query.", "Self-hosting the Neon engine is possible but not a typical path."],
+    "avoid_if": "you need a self-hosted database with a well-trodden operations story.",
+    "sources": [
+      {"title": "Neon documentation", "url": "https://neon.com/docs/introduction"},
+      {"title": "Neon source code", "url": "https://github.com/neondatabase/neon"}
+    ]
+  },
+  {
+    "slug": "couchdb",
+    "name": "Apache CouchDB",
+    "category": "database",
+    "summary": "Document database built around an HTTP API and a multi-master replication protocol.",
+    "use_cases": "Offline-first apps that sync with PouchDB clients, multi-site replication, simple HTTP/JSON storage.",
+    "languages": ["any"],
+    "licence": "Apache-2.0",
+    "open_source": true,
+    "deployment": ["self-hosted"],
+    "ops_overhead": "medium",
+    "capabilities": ["document-model", "offline-sync", "conflict-resolution", "realtime"],
+    "tradeoffs": ["Conflicts are detected but resolution logic is up to the application.", "Smaller ecosystem and managed-hosting options than mainstream databases."],
+    "avoid_if": "you need rich ad-hoc querying or a large managed-service ecosystem.",
+    "sources": [
+      {"title": "Apache CouchDB documentation", "url": "https://docs.couchdb.org/en/stable/"},
+      {"title": "CouchDB replication", "url": "https://docs.couchdb.org/en/stable/replication/intro.html"}
+    ]
+  },
+  {
+    "slug": "pouchdb",
+    "name": "PouchDB",
+    "category": "database",
+    "summary": "JavaScript database that runs in the browser or Node and syncs with CouchDB-compatible servers.",
+    "use_cases": "Offline-first web apps that store data locally and sync when online.",
+    "languages": ["TypeScript"],
+    "licence": "Apache-2.0",
+    "open_source": true,
+    "deployment": ["library"],
+    "ops_overhead": "low",
+    "capabilities": ["document-model", "offline-sync", "conflict-resolution", "embedded"],
+    "tradeoffs": ["Needs a CouchDB-compatible server for sync.", "Slower release cadence than newer local-first tools."],
+    "avoid_if": "you want real-time collaborative text editing (a CRDT library is a better fit).",
+    "sources": [
+      {"title": "PouchDB", "url": "https://pouchdb.com/"},
+      {"title": "PouchDB replication guide", "url": "https://pouchdb.com/guides/replication.html"}
+    ]
+  }
+]

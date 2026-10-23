@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ToolHub</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <h1>ToolHub</h1>
+  <p>Describe what you are building, set hard constraints, and get an evidence-backed shortlist ranked by MongoDB Atlas hybrid search.</p>
+</header>
+<main>
+  <form id="form">
+    <label for="brief">Brief</label>
+    <textarea id="brief" rows="4" required placeholder="e.g. Collaborative note-taking app that must work offline and sync edits when users reconnect"></textarea>
+    <div class="examples" id="examples"></div>
+
+    <div class="grid">
+      <div>
+        <label for="category">Category</label>
+        <select id="category"><option value="">Any</option></select>
+      </div>
+      <div>
+        <label>Hosting</label>
+        <div class="radios" id="hosting"></div>
+      </div>
+      <div>
+        <label for="max_ops">Max ops overhead</label>
+        <select id="max_ops"><option value="">Any</option></select>
+      </div>
+      <div>
+        <label class="inline"><input type="checkbox" id="open_source_only"> Open source only</label>
+      </div>
+    </div>
+
+    <label>Languages <span class="hint">(any of)</span></label>
+    <div class="chips" id="languages"></div>
+
+    <label>Required capabilities <span class="hint">(all of; pick a category to narrow the list)</span></label>
+    <div class="chips" id="capabilities"></div>
+
+    <div class="actions">
+      <button type="submit" id="submit">Recommend</button>
+      <button type="button" id="reset" class="secondary">New search</button>
+      <span id="status"></span>
+    </div>
+  </form>
+
+  <section id="changes" hidden></section>
+  <section id="results"></section>
+  <section id="excluded" hidden></section>
+  <details id="query" hidden>
+    <summary>Atlas aggregation pipeline used for this ranking</summary>
+    <pre id="pipeline"></pre>
+  </details>
+</main>
+<footer id="footer"></footer>
+<script src="/static/app.js"></script>
+</body>
+</html>

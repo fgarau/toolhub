@@ -1,0 +1,17 @@
+[project]
+name = "toolhub"
+version = "0.1.0"
+description = "Evidence-backed, constraint-aware developer tool recommendations on MongoDB Atlas"
+readme = "README.md"
+authors = [
+    { name = "Francisco Garau", email = "fgarau@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+toolhub = "toolhub:main"
+
+[build-system]
+requires = ["uv_build>=0.13.5,<0.14.0"]
+build-backend = "uv_build"

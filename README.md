@@ -30,10 +30,12 @@ Python project managed with [uv](https://docs.astral.sh/uv/) (Python ≥ 3.14).
 
 ```sh
 uv sync
-uv run toolhub
+export MONGODB_URI='mongodb+srv://<user>:<password>@<cluster>.mongodb.net/'
+export MONGODB_DB=toolhub   # optional, defaults to "toolhub"
+uv run toolhub ping
 ```
 
-Keep Atlas credentials in local environment variables (e.g. `MONGODB_URI`). Never commit connection strings or API keys.
+`toolhub ping` checks the Atlas connection. Keep Atlas credentials in local environment variables. Never commit connection strings or API keys.
 
 ## Status
 

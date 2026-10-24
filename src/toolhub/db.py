@@ -1,9 +1,12 @@
 import os
 from functools import cache
 
+from dotenv import load_dotenv
 from pymongo import MongoClient
 from pymongo.database import Database
 from pymongo.server_api import ServerApi
+
+load_dotenv()
 
 DEFAULT_DB_NAME = "toolhub"
 
@@ -17,7 +20,7 @@ def get_client() -> MongoClient:
     uri = os.environ.get("MONGODB_URI")
     if not uri:
         raise ConfigError(
-            "MONGODB_URI is not set. Export your Atlas connection string first."
+            "MONGODB_URI is not set. Add it to .env or export your Atlas connection string."
         )
     return MongoClient(uri, server_api=ServerApi("1"), appname="toolhub")
 
@@ -28,3 +31,8 @@ def get_db() -> Database:
 
 def ping() -> dict:
     return get_db().command("ping")
+
+
+if __name__ == "__main__":
+    ping()
+    print(f"Connected to MongoDB (database: {get_db().name})")

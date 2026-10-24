@@ -26,18 +26,28 @@ The catalogue is curated by hand rather than crawled. `docs/Cataloging GitHub Re
 
 ## Setup
 
-Python project managed with [uv](https://docs.astral.sh/uv/) (Python ≥ 3.14).
+Python project managed with [uv](https://docs.astral.sh/uv/) (Python ≥ 3.15).
+
+### MongoDB connection
+
+Atlas credentials live in a local `.env` file (gitignored) or in environment variables. Never commit connection strings or API keys.
+
+```sh
+# .env
+MONGODB_URI="mongodb+srv://<user>:<password>@cluster1.3ze1yu.mongodb.net/"
+MONGODB_DB=toolhub   # optional, defaults to "toolhub"
+```
+
+URL-encode special characters in the password (`@ : / ? # %`). The Atlas user and its IP allowlist entry are managed under Security → Database Access / Network Access.
+
+`src/toolhub/db.py` loads `.env` (via `python-dotenv`) and exposes `get_client()` (a cached `pymongo` client using the stable server API) and `get_db()`. Check connectivity with:
 
 ```sh
 uv sync
-export MONGODB_URI='mongodb+srv://<user>:<password>@<cluster>.mongodb.net/'
-export MONGODB_DB=toolhub   # optional, defaults to "toolhub"
-uv run toolhub ping         # check the connection
+uv run toolhub ping         # exit 0 connected, 1 unreachable/auth failure, 2 MONGODB_URI not set
 uv run toolhub setup        # seed the catalogue + create Atlas Search / Vector Search indexes
 uv run toolhub serve        # http://127.0.0.1:8000
 ```
-
-Keep Atlas credentials in local environment variables. Never commit connection strings or API keys.
 
 ### Commands
 

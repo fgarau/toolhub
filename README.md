@@ -33,8 +33,23 @@ uv sync
 uv run toolhub
 ```
 
-Keep Atlas credentials in local environment variables (e.g. `MONGODB_URI`). Never commit connection strings or API keys.
+### MongoDB connection
+
+Atlas credentials live in a local `.env` file (gitignored). Never commit connection strings or API keys.
+
+```sh
+# .env
+MONGODB_URI="mongodb+srv://<user>:<password>@cluster1.3ze1yu.mongodb.net/"
+```
+
+URL-encode special characters in the password (`@ : / ? # %`). The Atlas user and its IP allowlist entry are managed under Security → Database Access / Network Access.
+
+`src/toolhub/db.py` loads `.env` (via `python-dotenv`) and exposes `get_client()`, which returns a `pymongo` client using the stable server API. Check connectivity with:
+
+```sh
+uv run python -m toolhub.db   # prints "Connected to cluster1"
+```
 
 ## Status
 
-Early scaffolding. Next steps: provision Atlas, define the `tools` schema, seed the catalogue, create search and vector indexes, build the hybrid-search endpoint and UI.
+Early scaffolding. Atlas cluster (`cluster1`) is provisioned and reachable. Next steps: define the `tools` schema, seed the catalogue, create search and vector indexes, build the hybrid-search endpoint and UI.

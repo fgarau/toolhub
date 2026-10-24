@@ -26,7 +26,7 @@ The catalogue is curated by hand rather than crawled. `docs/Cataloging GitHub Re
 
 ## Setup
 
-Python project managed with [uv](https://docs.astral.sh/uv/) (Python ≥ 3.14).
+Python project managed with [uv](https://docs.astral.sh/uv/) (Python ≥ 3.15).
 
 ```sh
 uv sync
